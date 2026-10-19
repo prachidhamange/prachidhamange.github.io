@@ -1,1 +1,661 @@
-This will contain my welcome page
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prachi Dhamange</title>
+<meta name="description" content="Prachi Dhamange, software engineer in London. Case studies from six years on Outlook's Platform team at Microsoft.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Prachi Dhamange · Software engineer">
+<meta property="og:description" content="Case studies from six years on Outlook's Platform team at Microsoft: service identity migration across ~50,000 clusters, EU Digital Services Act reporting, and production on-call.">
+<meta property="og:url" content="https://prachidhamange.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='3' y='3' width='10' height='10' transform='rotate(45 8 8)' fill='%23a3540a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Schibsted+Grotesk:wght@500;600;700;800&display=swap">
+<style>
+/* Base reset for standalone hosting */
+:root { color-scheme: light; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+/* Layout: long-form engineering portfolio. Sticky contents rail beside one reading column on wide screens;
+   a single column on phones. Each case study uses the same four labels: Context, What made it hard, What I did, Result.
+   Motif: the amber diamond is the telemetry gate from the rollout diagram. */
+:root {
+  --bg: #f3f5f6;
+  --surface: #ffffff;
+  --fg: #16212b;
+  --fg-soft: #3c4954;
+  --muted: #5d6a75;
+  --line: #d6dde2;
+  --line-strong: #9aa8b3;
+  --accent: #a3540a;
+  --accent-soft: #f6e7d6;
+  --ok: #2c7a4c;
+  --fail: #b2362c;
+
+  --font-display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step--1: 0.875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.25rem;
+  --step-2: 1.6rem;
+  --step-3: clamp(1.6rem, 3.2vw, 2.15rem);
+  --step-4: clamp(2.6rem, 8vw, 4.9rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f151b;
+    --surface: #161e26;
+    --fg: #e5eaee;
+    --fg-soft: #c3ccd3;
+    --muted: #97a4af;
+    --line: #29343e;
+    --line-strong: #4f5e6a;
+    --accent: #f0a346;
+    --accent-soft: #33261a;
+    --ok: #5cbb84;
+    --fail: #ea6b60;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f151b;
+  --surface: #161e26;
+  --fg: #e5eaee;
+  --fg-soft: #c3ccd3;
+  --muted: #97a4af;
+  --line: #29343e;
+  --line-strong: #4f5e6a;
+  --accent: #f0a346;
+  --accent-soft: #33261a;
+  --ok: #5cbb84;
+  --fail: #ea6b60;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration-color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 56px 72px;
+}
+@media (min-width: 720px) {
+  .wrap { padding-left: max(40px, env(safe-area-inset-left, 0px)); padding-right: max(40px, env(safe-area-inset-right, 0px)); }
+}
+
+/* ---------- Hero ---------- */
+.hero { display: grid; gap: 28px; padding-bottom: 40px; }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.gate {
+  width: 9px; height: 9px; background: var(--accent);
+  transform: rotate(45deg); display: inline-block; margin-right: 10px; vertical-align: 1px;
+}
+.name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--step-4);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  margin: 0;
+  text-wrap: balance;
+}
+.thesis {
+  font-size: clamp(1.2rem, 2.3vw, 1.45rem);
+  line-height: 1.5;
+  max-width: 40em;
+  margin: 0;
+  color: var(--fg-soft);
+}
+.thesis strong { color: var(--fg); font-weight: 500; }
+.contact-row {
+  display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center;
+  font-family: var(--font-display); font-size: 0.95rem;
+}
+.contact-row .email { font-family: var(--font-mono); font-size: 0.9rem; user-select: all; }
+.copy {
+  font-family: var(--font-display); font-size: 0.8rem; font-weight: 600;
+  color: var(--fg); background: transparent;
+  border: 1px solid var(--line-strong); border-radius: 4px;
+  padding: 3px 10px; cursor: pointer;
+}
+.copy:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ---------- Spec strip ---------- */
+.specs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin: 0;
+}
+.specs > div { padding: 20px 20px 20px 0; display: grid; gap: 4px; align-content: start; }
+.specs > div + div { padding-left: 20px; border-left: 1px solid var(--line); }
+.specs dt {
+  font-family: var(--font-mono); font-weight: 500; font-size: var(--step-2);
+  font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1.2;
+}
+.specs dd { margin: 0; font-family: var(--font-display); font-size: var(--step--1); color: var(--muted); line-height: 1.4; }
+@media (max-width: 760px) {
+  .specs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .specs > div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .specs > div:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+
+.roles {
+  display: grid; gap: 6px; margin: 24px 0 0; padding: 0; list-style: none;
+  font-family: var(--font-display); font-size: 0.95rem;
+}
+.roles li { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; }
+.roles .when { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* ---------- Layout with rail ---------- */
+.layout { display: grid; gap: 8px; margin-top: 48px; }
+.rail { font-family: var(--font-display); font-size: 0.9rem; }
+.rail p { margin: 0 0 10px; }
+.rail ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.rail a { text-decoration: none; color: var(--muted); }
+.rail a:hover, .rail a[aria-current="true"] { color: var(--fg); }
+@media (min-width: 1000px) {
+  .layout { grid-template-columns: 196px minmax(0, 1fr); gap: 64px; }
+  .rail nav { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 32px); }
+  .rail ol { display: grid; gap: 9px; }
+  .rail a { display: flex; align-items: center; gap: 10px; }
+  .rail a::before {
+    content: ""; width: 7px; height: 7px; transform: rotate(45deg);
+    background: transparent; border: 1px solid var(--line-strong); flex: none;
+  }
+  .rail a[aria-current="true"]::before { background: var(--accent); border-color: var(--accent); }
+}
+.content { min-width: 0; max-width: 760px; }
+
+/* ---------- Case studies ---------- */
+.case { padding-block: 44px; border-top: 1px solid var(--line); scroll-margin-top: 24px; }
+.case:first-child { border-top: 0; padding-top: 8px; }
+.case h2 {
+  font-family: var(--font-display); font-weight: 700; font-size: var(--step-3);
+  line-height: 1.15; letter-spacing: -0.015em; margin: 10px 0 14px; text-wrap: balance;
+}
+.lead { font-size: var(--step-1); line-height: 1.5; margin: 0 0 8px; }
+.case h3 {
+  font-family: var(--font-display); font-weight: 600; font-size: 0.78rem;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+  margin: 30px 0 8px;
+}
+.case p { margin: 0 0 14px; max-width: 65ch; }
+.case ul { margin: 0 0 14px; padding-left: 1.2em; max-width: 65ch; display: grid; gap: 8px; }
+.case li::marker { color: var(--line-strong); }
+.result {
+  margin-top: 26px; padding: 16px 18px; background: var(--accent-soft);
+  border-radius: 4px; max-width: 65ch;
+}
+.result h3 { margin-top: 0; }
+.result p { margin: 0; }
+.case .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 0; padding: 0; list-style: none; max-width: none; }
+.case .tags li::marker { content: none; }
+.case .tags li {
+  font-family: var(--font-mono); font-size: 0.75rem; color: var(--fg-soft);
+  border: 1px solid var(--line); border-radius: 3px; padding: 2px 8px;
+}
+
+/* ---------- Diagrams ---------- */
+figure { margin: 30px 0 22px; }
+.diagram {
+  overflow-x: auto; background: var(--surface); border: 1px solid var(--line);
+  border-radius: 4px; padding: 18px 14px; color: var(--fg-soft);
+}
+.diagram svg { display: block; width: 100%; min-width: 640px; height: auto; }
+figcaption {
+  font-family: var(--font-display); font-size: var(--step--1); color: var(--muted);
+  line-height: 1.5; margin-top: 10px; max-width: 70ch;
+}
+.dg-box { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.2; }
+.dg-box-strong { fill: var(--surface); stroke: var(--fg-soft); stroke-width: 1.6; }
+.dg-zone { fill: none; stroke: var(--line-strong); stroke-width: 1; }
+.dg-ghost { fill: none; stroke: var(--line-strong); stroke-width: 1; stroke-dasharray: 3 3; }
+.dg-machine { fill: var(--line); stroke: var(--line-strong); stroke-width: 0.8; }
+.dg-line { stroke: currentColor; stroke-width: 1.3; fill: none; }
+.dg-gate { fill: var(--accent); }
+.dg-retry { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 5 4; fill: none; }
+.dg-head { fill: currentColor; }
+.dg-head-accent { fill: var(--accent); }
+.dg-ok { fill: var(--ok); }
+.dg-fail { fill: var(--fail); }
+.dg-t { fill: var(--fg); font-family: var(--font-mono); font-size: 13px; }
+.dg-s { fill: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+.dg-k { fill: var(--muted); font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; }
+.dg-big { fill: var(--fg); font-family: var(--font-mono); font-size: 16px; font-weight: 500; }
+
+/* ---------- Lists of smaller work ---------- */
+.items { display: grid; gap: 22px; margin-top: 8px; }
+.item h3 {
+  font-family: var(--font-display); font-weight: 600; font-size: 1.05rem;
+  letter-spacing: 0; text-transform: none; color: var(--fg); margin: 0 0 4px;
+}
+.item .meta { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); margin: 0 0 6px; }
+.item p { margin: 0; }
+
+.skills { display: grid; gap: 0; margin: 8px 0 0; }
+.skills > div {
+  display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 6px 20px;
+  padding: 12px 0; border-top: 1px solid var(--line);
+}
+.skills > div:last-child { border-bottom: 1px solid var(--line); }
+.skills dt { font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; }
+.skills dd { margin: 0; font-size: 1rem; }
+@media (max-width: 600px) { .skills > div { grid-template-columns: minmax(0, 1fr); } }
+
+.footer {
+  margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--line);
+  font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted);
+  display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow"><span class="gate" aria-hidden="true"></span>Software engineer · Production systems · London</div>
+    <h1 class="name">Prachi Dhamange</h1>
+    <p class="thesis">Six years on <strong>Outlook's Platform team at Microsoft</strong>, owning core messaging APIs and the security and compliance layers that every outbound message passes through, for a product with more than 400 million users. I'm most useful on legacy systems that have to keep running, and on production incidents where the failure mode is unknown.</p>
+    <div class="contact-row">
+      <span class="email" id="email">pra7iit@gmail.com</span>
+      <button class="copy" type="button" id="copy-email" data-copy="pra7iit@gmail.com">Copy email</button>
+      <a href="https://linkedin.com/in/prachi-dhamange-9019191a4/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://doi.org/10.1109/ACCESS.2022.3171254" target="_blank" rel="noopener">IEEE Access paper</a>
+    </div>
+  </header>
+
+  <dl class="specs">
+    <div><dt>400M+</dt><dd>users on Outlook, the product I built for</dd></div>
+    <div><dt>~50,000</dt><dd>high-availability clusters in one production ring of my rollout</dd></div>
+    <div><dt>99.95%</dt><dd>availability of the services I was primary on-call for</dd></div>
+    <div><dt>~99%</dt><dd>fewer support escalations after my configuration APIs shipped</dd></div>
+  </dl>
+
+  <ul class="roles">
+    <li><span>Software Engineer II, Microsoft · Outlook Platform</span><span class="when">Jul 2020 – Jun 2026 · Bengaluru</span></li>
+    <li><span>Software Engineer Intern, Cisco Systems</span><span class="when">Jan 2020 – Jun 2020 · Bengaluru</span></li>
+  </ul>
+
+  <div class="layout">
+    <aside class="rail">
+      <nav aria-label="Contents">
+        <ol>
+          <li><a href="#identity">Service identity migration</a></li>
+          <li><a href="#dsa">Digital Services Act reports</a></li>
+          <li><a href="#oncall">On-call and incidents</a></li>
+          <li><a href="#signatures">Signature configuration APIs</a></li>
+          <li><a href="#agents">AI agent workflows</a></li>
+          <li><a href="#earlier">Other work</a></li>
+          <li><a href="#projects">Projects and paper</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#education">Education</a></li>
+        </ol>
+      </nav>
+    </aside>
+
+    <main class="content">
+
+      <article class="case" id="identity">
+        <div class="eyebrow">Microsoft · Outlook Web · Security and rollout</div>
+        <h2>Moving Outlook Web's service identity off stored credentials</h2>
+        <p class="lead">I owned the migration of Outlook Web's backend service identity to OS-managed virtual accounts, rolled out ring by ring across a production fleet of about 50,000 high-availability clusters.</p>
+
+        <h3>Context</h3>
+        <p>Outlook Web's backend authenticated with a legacy credential model that had built up as security debt across a live fleet. A virtual account is managed by the operating system, so there is no service password to store, rotate or leak. This work was one workstream of a larger migration of the service to .NET Core.</p>
+
+        <h3>What made it hard</h3>
+        <p>The service could not be paused while it moved. Each environment surfaced auth, permissions and secrets-management failures that only appeared once the new identity was in place. Fixing some of them needed agreement from auth and security teams in other orgs.</p>
+
+        <figure>
+          <div class="diagram">
+            <svg viewBox="0 0 760 300" role="img" aria-label="The identity change moved through three pre-production environments and then production rings, with a telemetry gate before each promotion. One production ring holds about 100 forests, each forest about 500 DAGs, and each DAG 16 to 24 machines.">
+              <defs>
+                <marker id="arr-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" class="dg-head"/>
+                </marker>
+              </defs>
+              <!-- stages -->
+              <rect class="dg-box" x="20" y="24" width="140" height="60" rx="4"/>
+              <text class="dg-t" x="90" y="50" text-anchor="middle">Pre-prod 1</text>
+              <text class="dg-s" x="90" y="68" text-anchor="middle">validation</text>
+
+              <rect class="dg-box" x="210" y="24" width="140" height="60" rx="4"/>
+              <text class="dg-t" x="280" y="50" text-anchor="middle">Pre-prod 2</text>
+              <text class="dg-s" x="280" y="68" text-anchor="middle">validation</text>
+
+              <rect class="dg-box" x="400" y="24" width="140" height="60" rx="4"/>
+              <text class="dg-t" x="470" y="50" text-anchor="middle">Pre-prod 3</text>
+              <text class="dg-s" x="470" y="68" text-anchor="middle">validation</text>
+
+              <rect class="dg-box-strong" x="590" y="24" width="150" height="60" rx="4"/>
+              <text class="dg-t" x="665" y="50" text-anchor="middle">Production</text>
+              <text class="dg-s" x="665" y="68" text-anchor="middle">ring by ring</text>
+
+              <!-- promotions with gates -->
+              <line class="dg-line" x1="161" y1="54" x2="207" y2="54" marker-end="url(#arr-r)"/>
+              <polygon class="dg-gate" points="183,46 191,54 183,62 175,54"/>
+              <line class="dg-line" x1="351" y1="54" x2="397" y2="54" marker-end="url(#arr-r)"/>
+              <polygon class="dg-gate" points="373,46 381,54 373,62 365,54"/>
+              <line class="dg-line" x1="541" y1="54" x2="587" y2="54" marker-end="url(#arr-r)"/>
+              <polygon class="dg-gate" points="563,46 571,54 563,62 555,54"/>
+
+              <!-- legend -->
+              <polygon class="dg-gate" points="26,104 32,110 26,116 20,110"/>
+              <text class="dg-s" x="40" y="114">telemetry gate: promote only while service health holds</text>
+
+              <!-- zoom into one production ring -->
+              <line class="dg-line" x1="665" y1="85" x2="665" y2="140" stroke-dasharray="2 3"/>
+              <rect class="dg-zone" x="290" y="140" width="450" height="150" rx="4"/>
+              <text class="dg-k" x="304" y="160">PRODUCTION RING · ~100 FORESTS</text>
+              <rect class="dg-zone" x="306" y="172" width="418" height="106" rx="3"/>
+              <text class="dg-k" x="320" y="192">FOREST · ~500 DAGS</text>
+              <rect class="dg-box" x="322" y="204" width="210" height="62" rx="3"/>
+              <text class="dg-s" x="336" y="224">DAG · 16–24 machines</text>
+              <rect class="dg-machine" x="336" y="238" width="12" height="12" rx="1.5"/>
+              <rect class="dg-machine" x="354" y="238" width="12" height="12" rx="1.5"/>
+              <rect class="dg-machine" x="372" y="238" width="12" height="12" rx="1.5"/>
+              <rect class="dg-machine" x="390" y="238" width="12" height="12" rx="1.5"/>
+              <rect class="dg-machine" x="408" y="238" width="12" height="12" rx="1.5"/>
+              <rect class="dg-machine" x="426" y="238" width="12" height="12" rx="1.5"/>
+              <rect class="dg-machine" x="444" y="238" width="12" height="12" rx="1.5"/>
+              <rect class="dg-machine" x="462" y="238" width="12" height="12" rx="1.5"/>
+              <rect class="dg-machine" x="480" y="238" width="12" height="12" rx="1.5"/>
+              <rect class="dg-machine" x="498" y="238" width="12" height="12" rx="1.5"/>
+              <rect class="dg-ghost" x="548" y="204" width="48" height="62" rx="3"/>
+              <rect class="dg-ghost" x="606" y="204" width="48" height="62" rx="3"/>
+              <rect class="dg-ghost" x="664" y="204" width="48" height="62" rx="3"/>
+
+              <!-- totals -->
+              <text class="dg-k" x="20" y="170">ONE PRODUCTION RING</text>
+              <text class="dg-big" x="20" y="198">100 × ~500 ≈ 50,000</text>
+              <text class="dg-s" x="20" y="216">high-availability clusters</text>
+              <text class="dg-big" x="20" y="250">hundreds of thousands</text>
+              <text class="dg-s" x="20" y="268">of servers</text>
+            </svg>
+          </div>
+          <figcaption>The change had to pass a telemetry gate at every stage before it was promoted, and every stage could roll back. A DAG (database availability group) is Exchange's high-availability cluster unit.</figcaption>
+        </figure>
+
+        <h3>What I did</h3>
+        <ul>
+          <li>Owned the architecture and the alignment with auth and security teams across orgs.</li>
+          <li>Chose an incremental migration over a big-bang cutover, so a problem would stay inside one ring.</li>
+          <li>Designed the rollout across five environments: three pre-production stages, then production rings, with each promotion gated on telemetry and rollback ready at every ring.</li>
+          <li>Root-caused the failures each ring exposed before promoting the next.</li>
+          <li>Built dashboards tracking the health of migrated services ring by ring, using AI tooling and agent skills to build them far faster than by hand.</li>
+          <li>Wrote the telemetry and runbooks that let any on-call engineer operate the new identity model.</li>
+        </ul>
+
+        <div class="result">
+          <h3>Result</h3>
+          <p>Outlook Web's service identity moved to virtual accounts across the fleet one ring at a time, with each promotion gated on what the telemetry showed.</p>
+        </div>
+        <ul class="tags" aria-label="Topics">
+          <li>service identity</li><li>secrets management</li><li>staged rollout</li><li>telemetry gating</li><li>.NET Core migration</li>
+        </ul>
+      </article>
+
+      <article class="case" id="dsa">
+        <div class="eyebrow">Microsoft · Outlook · Compliance</div>
+        <h2>Content reports under the EU Digital Services Act</h2>
+        <p class="lead">I designed and built the backend behind Outlook's Report a Concern flow, which handles content reports required under the EU Digital Services Act.</p>
+
+        <h3>Context</h3>
+        <p>The Digital Services Act puts legal obligations on how platforms act on reported content. In Outlook, when a user reports a mail, that mail has to be deleted from every recipient's mailbox, correctly, auditably and within the regulatory deadline.</p>
+
+        <h3>What made it hard</h3>
+        <p>Volume was modest, hundreds of reports a week. The difficulty sat inside each report: one mail can have hundreds of recipients, every one of those deletes has to happen, and none of them can be silently dropped.</p>
+
+        <figure>
+          <div class="diagram">
+            <svg viewBox="0 0 760 280" role="img" aria-label="Reporting a mail raises an event. The event asynchronously triggers a fan-out that sends a delete to every recipient mailbox in parallel. A failed mailbox is retried on its own.">
+              <defs>
+                <marker id="arr-d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" class="dg-head"/>
+                </marker>
+                <marker id="arr-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" class="dg-head-accent"/>
+                </marker>
+              </defs>
+
+              <rect class="dg-box" x="20" y="110" width="140" height="50" rx="4"/>
+              <text class="dg-t" x="90" y="131" text-anchor="middle">User reports</text>
+              <text class="dg-t" x="90" y="148" text-anchor="middle">a mail</text>
+
+              <line class="dg-line" x1="161" y1="135" x2="227" y2="135" marker-end="url(#arr-d)"/>
+              <text class="dg-s" x="194" y="126" text-anchor="middle">triggers</text>
+
+              <rect class="dg-box" x="230" y="110" width="120" height="50" rx="4"/>
+              <text class="dg-t" x="290" y="139" text-anchor="middle">Report event</text>
+
+              <line class="dg-line" x1="351" y1="135" x2="397" y2="135" marker-end="url(#arr-d)"/>
+              <text class="dg-s" x="374" y="126" text-anchor="middle">async</text>
+
+              <rect class="dg-box-strong" x="400" y="110" width="100" height="50" rx="4"/>
+              <text class="dg-t" x="450" y="132" text-anchor="middle">Fan-out</text>
+              <text class="dg-s" x="450" y="150" text-anchor="middle">gRPC / REST</text>
+
+              <!-- fan-out arrows -->
+              <line class="dg-line" x1="501" y1="128" x2="577" y2="47" marker-end="url(#arr-d)"/>
+              <line class="dg-line" x1="501" y1="131" x2="577" y2="91" marker-end="url(#arr-d)"/>
+              <line class="dg-line" x1="501" y1="135" x2="577" y2="135" marker-end="url(#arr-d)"/>
+              <line class="dg-line" x1="501" y1="142" x2="577" y2="223" marker-end="url(#arr-d)"/>
+              <text class="dg-s" x="545" y="151" text-anchor="middle">delete</text>
+
+              <!-- mailboxes -->
+              <rect class="dg-box" x="580" y="30" width="130" height="30" rx="3"/>
+              <text class="dg-t" x="645" y="49" text-anchor="middle">Mailbox 1</text>
+              <circle class="dg-ok" cx="730" cy="45" r="7"/>
+
+              <rect class="dg-box" x="580" y="75" width="130" height="30" rx="3"/>
+              <text class="dg-t" x="645" y="94" text-anchor="middle">Mailbox 2</text>
+              <circle class="dg-ok" cx="730" cy="90" r="7"/>
+
+              <rect class="dg-box" x="580" y="120" width="130" height="30" rx="3"/>
+              <text class="dg-t" x="645" y="139" text-anchor="middle">Mailbox 3</text>
+              <circle class="dg-fail" cx="730" cy="135" r="7"/>
+
+              <text class="dg-t" x="645" y="184" text-anchor="middle">⋮</text>
+
+              <rect class="dg-box" x="580" y="210" width="130" height="30" rx="3"/>
+              <text class="dg-t" x="645" y="229" text-anchor="middle">Mailbox n</text>
+              <circle class="dg-ok" cx="730" cy="225" r="7"/>
+
+              <text class="dg-s" x="645" y="262" text-anchor="middle">n = hundreds of recipients</text>
+
+              <!-- retry -->
+              <path class="dg-retry" d="M450,162 C450,200 540,198 576,148" marker-end="url(#arr-a)"/>
+              <text class="dg-s" x="410" y="214">retry, idempotent</text>
+
+              <!-- legend -->
+              <circle class="dg-ok" cx="26" cy="258" r="6"/>
+              <text class="dg-s" x="38" y="262">deleted</text>
+              <circle class="dg-fail" cx="110" cy="258" r="6"/>
+              <text class="dg-s" x="122" y="262">failed, retried on its own</text>
+            </svg>
+          </div>
+          <figcaption>Reporting a mail raises an event that fans the delete out to every recipient mailbox in parallel. Each mailbox operation is isolated and idempotent, so a failure is retried on its own without repeating or blocking the rest.</figcaption>
+        </figure>
+
+        <h3>What I did</h3>
+        <ul>
+          <li>Worked with legal, compliance and product to turn the legal requirements into technical contracts.</li>
+          <li>Modelled the flow as event-driven: reporting a mail raises an event, and that event asynchronously fans the delete out to every recipient mailbox.</li>
+          <li>Built parallel gRPC and REST execution paths, and authored and evolved the protobuf contracts between services.</li>
+          <li>Made the per-mailbox handlers idempotent, so a failed operation can be retried safely.</li>
+          <li>Isolated failures per mailbox, so one mailbox failing does not block or undo the others.</li>
+        </ul>
+
+        <div class="result">
+          <h3>Result</h3>
+          <p>More than 99.9% reliability against regulatory deadlines, with no report silently dropped.</p>
+        </div>
+        <ul class="tags" aria-label="Topics">
+          <li>event-driven fan-out</li><li>idempotency</li><li>partial failure</li><li>gRPC</li><li>protobuf contracts</li>
+        </ul>
+      </article>
+
+      <article class="case" id="oncall">
+        <div class="eyebrow">Microsoft · Outlook · Operations</div>
+        <h2>Primary on-call for mission-critical messaging services</h2>
+        <p class="lead">I was primary on-call and incident owner for messaging services that held 99.95% availability.</p>
+        <p>I led major-incident resolution and root-cause analysis, and diagnosed production auth, permissions and secrets-management failures under time pressure. I tuned performance using production observability data.</p>
+        <p>I also wrote the telemetry and runbooks that let any on-call engineer operate the systems I owned, so the knowledge did not sit with one person.</p>
+        <ul class="tags" aria-label="Topics">
+          <li>incident response</li><li>root-cause analysis</li><li>runbooks</li><li>SLOs</li><li>performance tuning</li>
+        </ul>
+      </article>
+
+      <article class="case" id="signatures">
+        <div class="eyebrow">Microsoft · Outlook · Enterprise</div>
+        <h2>Self-serve signature management for enterprise admins</h2>
+        <p class="lead">I turned a long-standing customer blocker into a self-serve capability, and related support escalations fell by about 99%.</p>
+        <p>Managing email signatures across a whole organisation was a long-standing blocker for enterprise customers and a steady source of support escalations. I designed cloud-based configuration APIs that let admins manage signatures org-wide themselves.</p>
+        <ul class="tags" aria-label="Topics">
+          <li>API design</li><li>enterprise admin</li><li>customer escalations</li>
+        </ul>
+      </article>
+
+      <article class="case" id="agents">
+        <div class="eyebrow">Microsoft · Engineering productivity</div>
+        <h2>AI agent workflows for engineering</h2>
+        <p class="lead">I built reusable AI agent workflows for rollout monitoring, incident investigation and finding my way around large codebases, and they were adopted across the org.</p>
+        <p>They are now part of how the team reviews pull requests and automates routine work. I used the same tooling and agent skills to build the identity migration's health dashboards far faster than building them by hand.</p>
+        <ul class="tags" aria-label="Topics">
+          <li>AI agents</li><li>rollout monitoring</li><li>incident investigation</li><li>code review</li>
+        </ul>
+      </article>
+
+      <section class="case" id="earlier">
+        <div class="eyebrow">Earlier and smaller work</div>
+        <h2>Other work</h2>
+        <div class="items">
+          <div class="item">
+            <h3>Accessibility quality push, Office add-ins store</h3>
+            <p class="meta">Microsoft · TypeScript, React</p>
+            <p>Led a push on accessibility for customers using assistive technology, cutting critical bugs from 120 to 5 in two months through systematic triage.</p>
+          </div>
+          <div class="item">
+            <h3>Monitoring and diagnostics dashboard, Cisco Expressway</h3>
+            <p class="meta">Cisco Systems, internship · Linux</p>
+            <p>Built an internal dashboard on a Linux-based platform that support engineers used to triage escalations faster.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="case" id="projects">
+        <div class="eyebrow">Projects and paper</div>
+        <h2>Projects and paper</h2>
+        <div class="items">
+          <div class="item">
+            <h3>Food Order Scheduler, a real-time OS project</h3>
+            <p class="meta">C · Linux · built solo</p>
+            <p>The backend of a real-time food ordering system, with a deadline-aware scheduler that combines first-come-first-served and shortest-job-first to prioritise concurrent orders against their delivery deadlines.</p>
+          </div>
+          <div class="item">
+            <h3><a href="https://doi.org/10.1109/ACCESS.2022.3171254" target="_blank" rel="noopener">Market Dynamics and Regulation of a Crowd-Sourced AI Marketplace</a></h3>
+            <p class="meta">IEEE Access, vol. 10, pp. 54325–54335, 2022</p>
+            <p>An agent-based model of a data marketplace with regulators, sellers and buyers, observing emergent changes in agent behaviour and market dynamics.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="case" id="skills">
+        <div class="eyebrow">Toolbox</div>
+        <h2>Skills</h2>
+        <dl class="skills">
+          <div><dt>Languages</dt><dd>C#, C++, Python, C, TypeScript</dd></div>
+          <div><dt>Distributed systems</dt><dd>gRPC and protobuf contract evolution, REST APIs, event-driven fan-out, idempotency and retry semantics, fault isolation, concurrency</dd></div>
+          <div><dt>Production engineering</dt><dd>incident response and root-cause analysis, observability and dashboards, SLOs, ring-based staged rollouts, runbooks, CI/CD</dd></div>
+          <div><dt>Platforms</dt><dd>Windows Server at production scale; Linux and C (Cisco Expressway, systems projects)</dd></div>
+        </dl>
+      </section>
+
+      <section class="case" id="education">
+        <div class="eyebrow">Education</div>
+        <h2>IIIT Bangalore</h2>
+        <p>Integrated M.Tech + B.Tech, Electronics and Communication, International Institute of Information Technology Bangalore, 2015–2020.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span>Prachi Dhamange · London</span>
+    <span>Updated October 2026</span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById('copy-email');
+  if (btn) {
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy');
+      function selectEmail() {
+        try {
+          var el = document.getElementById('email');
+          var range = document.createRange();
+          range.selectNodeContents(el);
+          var sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+        } catch (e) {}
+      }
+      var done = function (label) {
+        btn.textContent = label;
+        setTimeout(function () { btn.textContent = 'Copy email'; }, 1800);
+      };
+      try {
+        navigator.clipboard.writeText(text).then(function () { done('Copied'); }, function () { selectEmail(); done('Selected, press copy'); });
+      } catch (e) { selectEmail(); done('Selected, press copy'); }
+    });
+  }
+
+  try {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.rail a'));
+    var map = {};
+    links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+    var sections = Object.keys(map).map(function (id) { return document.getElementById(id); }).filter(Boolean);
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          links.forEach(function (a) { a.removeAttribute('aria-current'); });
+          var a = map[entry.target.id];
+          if (a) a.setAttribute('aria-current', 'true');
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(function (s) { io.observe(s); });
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>
