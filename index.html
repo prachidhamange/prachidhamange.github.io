@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Prachi Dhamange</title>
-<meta name="description" content="Prachi Dhamange, software engineer in London. Case studies from six years on Outlook's Platform team at Microsoft.">
+<meta name="description" content="Prachi Dhamange, backend software engineer in London. Case studies from six years on Outlook's Platform team at Microsoft.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Prachi Dhamange · Software engineer">
-<meta property="og:description" content="Case studies from six years on Outlook's Platform team at Microsoft: service identity migration across ~50,000 clusters, EU Digital Services Act reporting, and production on-call.">
+<meta property="og:description" content="Case studies from six years on Outlook's Platform team at Microsoft: EU Digital Services Act compliance, a security-first identity migration across ~0.5M machines, secure admin access, and production on-call.">
 <meta property="og:url" content="https://prachidhamange.github.io/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='3' y='3' width='10' height='10' transform='rotate(45 8 8)' fill='%23a3540a'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +20,7 @@ body { margin: 0; }
 img { max-width: 100%; }
 [hidden] { display: none !important; }
 /* Layout: long-form engineering portfolio. Sticky contents rail beside one reading column on wide screens;
-   a single column on phones. Each case study uses the same four labels: Context, What made it hard, What I did, Result.
+   one column on phones. Case studies share the same labels: Context, What made it hard, What I did, Result.
    Motif: the amber diamond is the telemetry gate from the rollout diagram. */
 :root {
   --bg: #f3f5f6;
@@ -48,32 +48,16 @@ img { max-width: 100%; }
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0f151b;
-    --surface: #161e26;
-    --fg: #e5eaee;
-    --fg-soft: #c3ccd3;
-    --muted: #97a4af;
-    --line: #29343e;
-    --line-strong: #4f5e6a;
-    --accent: #f0a346;
-    --accent-soft: #33261a;
-    --ok: #5cbb84;
-    --fail: #ea6b60;
+    --bg: #0f151b; --surface: #161e26; --fg: #e5eaee; --fg-soft: #c3ccd3; --muted: #97a4af;
+    --line: #29343e; --line-strong: #4f5e6a; --accent: #f0a346; --accent-soft: #33261a;
+    --ok: #5cbb84; --fail: #ea6b60;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0f151b;
-  --surface: #161e26;
-  --fg: #e5eaee;
-  --fg-soft: #c3ccd3;
-  --muted: #97a4af;
-  --line: #29343e;
-  --line-strong: #4f5e6a;
-  --accent: #f0a346;
-  --accent-soft: #33261a;
-  --ok: #5cbb84;
-  --fail: #ea6b60;
+  --bg: #0f151b; --surface: #161e26; --fg: #e5eaee; --fg-soft: #c3ccd3; --muted: #97a4af;
+  --line: #29343e; --line-strong: #4f5e6a; --accent: #f0a346; --accent-soft: #33261a;
+  --ok: #5cbb84; --fail: #ea6b60;
   color-scheme: dark;
 }
 
@@ -104,198 +88,166 @@ a:hover { color: var(--accent); }
 }
 
 /* ---------- Hero ---------- */
-.hero { display: grid; gap: 28px; padding-bottom: 40px; }
+.hero { display: grid; gap: 26px; padding-bottom: 40px; }
 .eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted);
 }
-.gate {
-  width: 9px; height: 9px; background: var(--accent);
-  transform: rotate(45deg); display: inline-block; margin-right: 10px; vertical-align: 1px;
-}
+.gate { width: 9px; height: 9px; background: var(--accent); transform: rotate(45deg); display: inline-block; margin-right: 10px; vertical-align: 1px; }
 .name {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: var(--step-4);
-  line-height: 0.95;
-  letter-spacing: -0.025em;
-  margin: 0;
-  text-wrap: balance;
+  font-family: var(--font-display); font-weight: 800; font-size: var(--step-4);
+  line-height: 0.95; letter-spacing: -0.025em; margin: 0; text-wrap: balance;
 }
-.thesis {
-  font-size: clamp(1.2rem, 2.3vw, 1.45rem);
-  line-height: 1.5;
-  max-width: 40em;
-  margin: 0;
-  color: var(--fg-soft);
-}
+.thesis { font-size: clamp(1.2rem, 2.3vw, 1.45rem); line-height: 1.5; max-width: 40em; margin: 0; color: var(--fg-soft); }
 .thesis strong { color: var(--fg); font-weight: 500; }
-.contact-row {
-  display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center;
-  font-family: var(--font-display); font-size: 0.95rem;
-}
+.contact-row { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; font-family: var(--font-display); font-size: 0.95rem; }
 .contact-row .email { font-family: var(--font-mono); font-size: 0.9rem; user-select: all; }
 .copy {
-  font-family: var(--font-display); font-size: 0.8rem; font-weight: 600;
-  color: var(--fg); background: transparent;
-  border: 1px solid var(--line-strong); border-radius: 4px;
-  padding: 3px 10px; cursor: pointer;
+  font-family: var(--font-display); font-size: 0.8rem; font-weight: 600; color: var(--fg); background: transparent;
+  border: 1px solid var(--line-strong); border-radius: 4px; padding: 3px 10px; cursor: pointer;
 }
 .copy:hover { border-color: var(--accent); color: var(--accent); }
+.resume-link {
+  font-weight: 600; text-decoration: none; border: 1px solid var(--fg); border-radius: 4px; padding: 4px 12px;
+}
+.resume-link:hover { border-color: var(--accent); }
 
 /* ---------- Spec strip ---------- */
-.specs {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  margin: 0;
-}
+.specs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0; }
 .specs > div { padding: 20px 20px 20px 0; display: grid; gap: 4px; align-content: start; }
 .specs > div + div { padding-left: 20px; border-left: 1px solid var(--line); }
-.specs dt {
-  font-family: var(--font-mono); font-weight: 500; font-size: var(--step-2);
-  font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1.2;
-}
+.specs dt { font-family: var(--font-mono); font-weight: 500; font-size: var(--step-2); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1.2; }
 .specs dd { margin: 0; font-family: var(--font-display); font-size: var(--step--1); color: var(--muted); line-height: 1.4; }
 @media (max-width: 760px) {
   .specs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .specs > div:nth-child(3) { padding-left: 0; border-left: 0; }
   .specs > div:nth-child(n+3) { border-top: 1px solid var(--line); }
 }
-
-.roles {
-  display: grid; gap: 6px; margin: 24px 0 0; padding: 0; list-style: none;
-  font-family: var(--font-display); font-size: 0.95rem;
-}
+.roles { display: grid; gap: 6px; margin: 24px 0 0; padding: 0; list-style: none; font-family: var(--font-display); font-size: 0.95rem; }
 .roles li { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; }
 .roles .when { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
 
 /* ---------- Layout with rail ---------- */
 .layout { display: grid; gap: 8px; margin-top: 48px; }
 .rail { font-family: var(--font-display); font-size: 0.9rem; }
-.rail p { margin: 0 0 10px; }
 .rail ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
 .rail a { text-decoration: none; color: var(--muted); }
 .rail a:hover, .rail a[aria-current="true"] { color: var(--fg); }
 @media (min-width: 1000px) {
-  .layout { grid-template-columns: 196px minmax(0, 1fr); gap: 64px; }
+  .layout { grid-template-columns: 200px minmax(0, 1fr); gap: 64px; }
   .rail nav { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 32px); }
   .rail ol { display: grid; gap: 9px; }
   .rail a { display: flex; align-items: center; gap: 10px; }
-  .rail a::before {
-    content: ""; width: 7px; height: 7px; transform: rotate(45deg);
-    background: transparent; border: 1px solid var(--line-strong); flex: none;
-  }
+  .rail a::before { content: ""; width: 7px; height: 7px; transform: rotate(45deg); border: 1px solid var(--line-strong); flex: none; }
   .rail a[aria-current="true"]::before { background: var(--accent); border-color: var(--accent); }
 }
 .content { min-width: 0; max-width: 760px; }
 
-/* ---------- Case studies ---------- */
+/* ---------- Sections and case studies ---------- */
 .case { padding-block: 44px; border-top: 1px solid var(--line); scroll-margin-top: 24px; }
 .case:first-child { border-top: 0; padding-top: 8px; }
-.case h2 {
-  font-family: var(--font-display); font-weight: 700; font-size: var(--step-3);
-  line-height: 1.15; letter-spacing: -0.015em; margin: 10px 0 14px; text-wrap: balance;
-}
+.case h2 { font-family: var(--font-display); font-weight: 700; font-size: var(--step-3); line-height: 1.15; letter-spacing: -0.015em; margin: 10px 0 14px; text-wrap: balance; }
 .lead { font-size: var(--step-1); line-height: 1.5; margin: 0 0 8px; }
-.case h3 {
-  font-family: var(--font-display); font-weight: 600; font-size: 0.78rem;
-  letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
-  margin: 30px 0 8px;
-}
+.case h3 { font-family: var(--font-display); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 30px 0 8px; }
 .case p { margin: 0 0 14px; max-width: 65ch; }
 .case ul { margin: 0 0 14px; padding-left: 1.2em; max-width: 65ch; display: grid; gap: 8px; }
 .case li::marker { color: var(--line-strong); }
-.result {
-  margin-top: 26px; padding: 16px 18px; background: var(--accent-soft);
-  border-radius: 4px; max-width: 65ch;
-}
+.lead-in { font-family: var(--font-display); font-weight: 600; font-size: 0.95em; }
+.result { margin-top: 26px; padding: 16px 18px; background: var(--accent-soft); border-radius: 4px; max-width: 65ch; }
 .result h3 { margin-top: 0; }
 .result p { margin: 0; }
 .case .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 0; padding: 0; list-style: none; max-width: none; }
 .case .tags li::marker { content: none; }
-.case .tags li {
-  font-family: var(--font-mono); font-size: 0.75rem; color: var(--fg-soft);
-  border: 1px solid var(--line); border-radius: 3px; padding: 2px 8px;
-}
+.case .tags li { font-family: var(--font-mono); font-size: 0.75rem; color: var(--fg-soft); border: 1px solid var(--line); border-radius: 3px; padding: 2px 8px; }
+.incident-title { font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; line-height: 1.35; }
+
+/* How I work */
+.principles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 36px; margin-top: 6px; }
+.principle { border-top: 1px solid var(--line); padding: 16px 0 18px; display: grid; gap: 6px; align-content: start; }
+.case .principle h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; letter-spacing: 0; text-transform: none; color: var(--fg); margin: 0; }
+.case .principle p { margin: 0; }
+.see { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); }
+@media (max-width: 640px) { .principles { grid-template-columns: minmax(0, 1fr); } }
+
+/* Table and steps */
+.table-wrap { overflow-x: auto; margin: 18px 0 22px; }
+table.versions { border-collapse: collapse; width: 100%; min-width: 540px; font-size: 0.95rem; }
+.versions th { text-align: left; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 0 14px 8px 0; border-bottom: 1px solid var(--line-strong); }
+.versions td { padding: 10px 14px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.versions td:first-child { font-family: var(--font-display); font-weight: 600; }
+.versions .mono { font-family: var(--font-mono); font-size: 0.84rem; }
+ol.steps { list-style: none; counter-reset: step; padding: 0; margin: 4px 0 16px; display: grid; gap: 8px; max-width: 65ch; }
+ol.steps li { counter-increment: step; display: grid; grid-template-columns: 30px minmax(0, 1fr); align-items: baseline; }
+ol.steps li::before { content: counter(step); font-family: var(--font-mono); font-size: 0.82rem; font-weight: 500; color: var(--accent); }
 
 /* ---------- Diagrams ---------- */
 figure { margin: 30px 0 22px; }
-.diagram {
-  overflow-x: auto; background: var(--surface); border: 1px solid var(--line);
-  border-radius: 4px; padding: 18px 14px; color: var(--fg-soft);
-}
+.diagram { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 18px 14px; color: var(--fg-soft); }
 .diagram svg { display: block; width: 100%; min-width: 640px; height: auto; }
-figcaption {
-  font-family: var(--font-display); font-size: var(--step--1); color: var(--muted);
-  line-height: 1.5; margin-top: 10px; max-width: 70ch;
-}
+figcaption { font-family: var(--font-display); font-size: var(--step--1); color: var(--muted); line-height: 1.5; margin-top: 10px; max-width: 70ch; }
 .dg-box { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.2; }
 .dg-box-strong { fill: var(--surface); stroke: var(--fg-soft); stroke-width: 1.6; }
+.dg-box-bad { fill: var(--surface); stroke: var(--fail); stroke-width: 1.6; }
+.dg-box-good { fill: var(--surface); stroke: var(--ok); stroke-width: 1.6; }
 .dg-zone { fill: none; stroke: var(--line-strong); stroke-width: 1; }
 .dg-ghost { fill: none; stroke: var(--line-strong); stroke-width: 1; stroke-dasharray: 3 3; }
+.dg-ghost-line { stroke: var(--line-strong); stroke-width: 1.2; stroke-dasharray: 3 3; fill: none; }
 .dg-machine { fill: var(--line); stroke: var(--line-strong); stroke-width: 0.8; }
 .dg-line { stroke: currentColor; stroke-width: 1.3; fill: none; }
+.dg-line-ok { stroke: var(--ok); stroke-width: 1.5; fill: none; }
+.dg-line-fail { stroke: var(--fail); stroke-width: 1.5; fill: none; }
+.dg-cross { stroke: var(--fail); stroke-width: 1.8; }
 .dg-gate { fill: var(--accent); }
 .dg-retry { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 5 4; fill: none; }
 .dg-head { fill: currentColor; }
 .dg-head-accent { fill: var(--accent); }
+.dg-head-ok { fill: var(--ok); }
+.dg-head-fail { fill: var(--fail); }
 .dg-ok { fill: var(--ok); }
 .dg-fail { fill: var(--fail); }
 .dg-t { fill: var(--fg); font-family: var(--font-mono); font-size: 13px; }
 .dg-s { fill: var(--muted); font-family: var(--font-mono); font-size: 11px; }
 .dg-k { fill: var(--muted); font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; }
 .dg-big { fill: var(--fg); font-family: var(--font-mono); font-size: 16px; font-weight: 500; }
+.dg-bad-text { fill: var(--fail); font-family: var(--font-mono); font-size: 11px; font-weight: 500; }
+.dg-good-text { fill: var(--ok); font-family: var(--font-mono); font-size: 11px; font-weight: 500; }
+.dg-chip { fill: var(--surface); font-family: var(--font-mono); font-size: 11px; font-weight: 500; }
 
-/* ---------- Lists of smaller work ---------- */
+/* ---------- Smaller work, skills ---------- */
 .items { display: grid; gap: 22px; margin-top: 8px; }
-.item h3 {
-  font-family: var(--font-display); font-weight: 600; font-size: 1.05rem;
-  letter-spacing: 0; text-transform: none; color: var(--fg); margin: 0 0 4px;
-}
+.case .item h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; letter-spacing: 0; text-transform: none; color: var(--fg); margin: 0 0 4px; }
 .item .meta { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); margin: 0 0 6px; }
-.item p { margin: 0; }
-
-.skills { display: grid; gap: 0; margin: 8px 0 0; }
-.skills > div {
-  display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 6px 20px;
-  padding: 12px 0; border-top: 1px solid var(--line);
-}
+.case .item p:last-child { margin: 0; }
+.skills { display: grid; margin: 8px 0 0; }
+.skills > div { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 6px 20px; padding: 12px 0; border-top: 1px solid var(--line); }
 .skills > div:last-child { border-bottom: 1px solid var(--line); }
 .skills dt { font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; }
 .skills dd { margin: 0; font-size: 1rem; }
 @media (max-width: 600px) { .skills > div { grid-template-columns: minmax(0, 1fr); } }
 
-.footer {
-  margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--line);
-  font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted);
-  display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between;
-}
+.footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hero">
-    <div class="eyebrow"><span class="gate" aria-hidden="true"></span>Software engineer · Production systems · London</div>
+    <div class="eyebrow"><span class="gate" aria-hidden="true"></span>Software engineer · Distributed systems · London</div>
     <h1 class="name">Prachi Dhamange</h1>
-    <p class="thesis">Six years on <strong>Outlook's Platform team at Microsoft</strong>, owning core messaging APIs and the security and compliance layers that every outbound message passes through, for a product with more than 400 million users. I'm most useful on legacy systems that have to keep running, and on production incidents where the failure mode is unknown.</p>
+    <p class="thesis">Backend software engineer with six years at Microsoft, designing and operating distributed systems for <strong>Outlook, used by more than 400 million people</strong>. I own ambiguous, high-stakes problems end to end, from system and security design through staged rollout and production support.</p>
     <div class="contact-row">
       <span class="email" id="email">pra7iit@gmail.com</span>
       <button class="copy" type="button" id="copy-email" data-copy="pra7iit@gmail.com">Copy email</button>
+      <a class="resume-link" href="Prachi_Dhamange_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
       <a href="https://linkedin.com/in/prachi-dhamange-9019191a4/" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://doi.org/10.1109/ACCESS.2022.3171254" target="_blank" rel="noopener">IEEE Access paper</a>
     </div>
   </header>
 
   <dl class="specs">
-    <div><dt>400M+</dt><dd>users on Outlook, the product I built for</dd></div>
-    <div><dt>~50,000</dt><dd>high-availability clusters in one production ring of my rollout</dd></div>
+    <div><dt>400M+</dt><dd>people use Outlook, the product I built for</dd></div>
+    <div><dt>~0.5M</dt><dd>machines in the identity rollout I drove</dd></div>
     <div><dt>99.95%</dt><dd>availability of the services I was primary on-call for</dd></div>
-    <div><dt>~99%</dt><dd>fewer support escalations after my configuration APIs shipped</dd></div>
+    <div><dt>~99%</dt><dd>fewer signature escalations, down from ~500 tickets a week</dd></div>
   </dl>
 
   <ul class="roles">
@@ -307,11 +259,12 @@ figcaption {
     <aside class="rail">
       <nav aria-label="Contents">
         <ol>
-          <li><a href="#identity">Service identity migration</a></li>
-          <li><a href="#dsa">Digital Services Act reports</a></li>
-          <li><a href="#oncall">On-call and incidents</a></li>
-          <li><a href="#signatures">Signature configuration APIs</a></li>
-          <li><a href="#agents">AI agent workflows</a></li>
+          <li><a href="#approach">How I work</a></li>
+          <li><a href="#dsa">Report A Concern</a></li>
+          <li><a href="#identity">Platform migration</a></li>
+          <li><a href="#signatures">Cloud signatures</a></li>
+          <li><a href="#oncall">On-call</a></li>
+          <li><a href="#agents">AI agents</a></li>
           <li><a href="#earlier">Other work</a></li>
           <li><a href="#projects">Projects and paper</a></li>
           <li><a href="#skills">Skills</a></li>
@@ -322,43 +275,176 @@ figcaption {
 
     <main class="content">
 
-      <article class="case" id="identity">
-        <div class="eyebrow">Microsoft · Outlook Web · Security and rollout</div>
-        <h2>Moving Outlook Web's service identity off stored credentials</h2>
-        <p class="lead">I owned the migration of Outlook Web's backend service identity to OS-managed virtual accounts, rolled out ring by ring across a production fleet of about 50,000 high-availability clusters.</p>
+      <section class="case" id="approach">
+        <h2>How I work</h2>
+        <div class="principles">
+          <div class="principle">
+            <h3>Design so nothing fails silently</h3>
+            <p>On systems with legal or security consequences, I isolate failures, make retries safe and record every outcome.</p>
+            <a class="see" href="#dsa">See: Report A Concern</a>
+          </div>
+          <div class="principle">
+            <h3>Ship big changes in small, reversible steps</h3>
+            <p>I prefer incremental rollouts, with a gate before each step and rollback ready at every stage.</p>
+            <a class="see" href="#identity">See: Platform migration</a>
+          </div>
+          <div class="principle">
+            <h3>Turn ambiguity into a plan</h3>
+            <p>When a problem isn't fully understood, I relieve the impact first, then find its full extent before designing the fix.</p>
+            <a class="see" href="#signatures">See: Cloud signatures</a>
+          </div>
+          <div class="principle">
+            <h3>Build agreement, then make it operable</h3>
+            <p>I take designs through principal engineers, security and privacy reviewers, and leave runbooks, handoffs and automation so others can run what I build.</p>
+            <a class="see" href="#oncall">See: On-call and AI agents</a>
+          </div>
+        </div>
+      </section>
+
+      <article class="case" id="dsa">
+        <div class="eyebrow">Microsoft · Outlook · Compliance</div>
+        <h2>Report A Concern - Digital Services Act</h2>
+        <p class="lead">I designed the backend that removes reported content from Outlook under the EU Digital Services Act, and drove the design to sign-off with principal engineers and engineering managers.</p>
 
         <h3>Context</h3>
-        <p>Outlook Web's backend authenticated with a legacy credential model that had built up as security debt across a live fleet. A virtual account is managed by the operating system, so there is no service password to store, rotate or leak. This work was one workstream of a larger migration of the service to .NET Core.</p>
+        <p>The Digital Services Act puts legal obligations on how platforms act on reported content. In Outlook, when a user reports a mail, that mail has to be deleted from every recipient's mailbox, correctly, auditably and within the regulatory deadline.</p>
 
         <h3>What made it hard</h3>
-        <p>The service could not be paused while it moved. Each environment surfaced auth, permissions and secrets-management failures that only appeared once the new identity was in place. Fixing some of them needed agreement from auth and security teams in other orgs.</p>
+        <p>Volume was modest, hundreds of reports a week. The difficulty sat inside each report: one mail can have hundreds of recipients, every delete has to happen, and the outcome of each one has to be recorded for audit. The service also needs access to mailboxes it doesn't own, and that access had to be tightly controlled.</p>
 
         <figure>
           <div class="diagram">
-            <svg viewBox="0 0 760 300" role="img" aria-label="The identity change moved through three pre-production environments and then production rings, with a telemetry gate before each promotion. One production ring holds about 100 forests, each forest about 500 DAGs, and each DAG 16 to 24 machines.">
+            <svg viewBox="0 0 850 292" role="img" aria-label="Reporting a mail raises an event that asynchronously fans the delete out to every recipient mailbox. A failed mailbox is retried on its own. Results from every mailbox are aggregated into one audit record.">
               <defs>
-                <marker id="arr-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                  <path d="M0,0 L10,5 L0,10 z" class="dg-head"/>
-                </marker>
+                <marker id="arr-d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-head"/></marker>
+                <marker id="arr-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-head-accent"/></marker>
               </defs>
-              <!-- stages -->
+
+              <rect class="dg-box" x="20" y="115" width="110" height="50" rx="4"/>
+              <text class="dg-t" x="75" y="136" text-anchor="middle">User reports</text>
+              <text class="dg-t" x="75" y="153" text-anchor="middle">a mail</text>
+
+              <line class="dg-line" x1="131" y1="140" x2="187" y2="140" marker-end="url(#arr-d)"/>
+              <text class="dg-s" x="159" y="131" text-anchor="middle">triggers</text>
+
+              <rect class="dg-box" x="190" y="115" width="110" height="50" rx="4"/>
+              <text class="dg-t" x="245" y="144" text-anchor="middle">Report event</text>
+
+              <line class="dg-line" x1="301" y1="140" x2="347" y2="140" marker-end="url(#arr-d)"/>
+              <text class="dg-s" x="324" y="131" text-anchor="middle">async</text>
+
+              <rect class="dg-box-strong" x="350" y="115" width="100" height="50" rx="4"/>
+              <text class="dg-t" x="400" y="136" text-anchor="middle">Fan-out</text>
+              <text class="dg-s" x="400" y="154" text-anchor="middle">gRPC / REST</text>
+
+              <line class="dg-line" x1="451" y1="131" x2="497" y2="52" marker-end="url(#arr-d)"/>
+              <line class="dg-line" x1="451" y1="135" x2="497" y2="96" marker-end="url(#arr-d)"/>
+              <line class="dg-line" x1="451" y1="140" x2="497" y2="140" marker-end="url(#arr-d)"/>
+              <line class="dg-line" x1="451" y1="147" x2="497" y2="226" marker-end="url(#arr-d)"/>
+              <text class="dg-s" x="400" y="106" text-anchor="middle">deletes</text>
+
+              <rect class="dg-box" x="500" y="35" width="120" height="30" rx="3"/>
+              <text class="dg-t" x="560" y="54" text-anchor="middle">Mailbox 1</text>
+              <rect class="dg-box" x="500" y="80" width="120" height="30" rx="3"/>
+              <text class="dg-t" x="560" y="99" text-anchor="middle">Mailbox 2</text>
+              <rect class="dg-box" x="500" y="125" width="120" height="30" rx="3"/>
+              <text class="dg-t" x="560" y="144" text-anchor="middle">Mailbox 3</text>
+              <text class="dg-t" x="560" y="186" text-anchor="middle">⋮</text>
+              <rect class="dg-box" x="500" y="213" width="120" height="30" rx="3"/>
+              <text class="dg-t" x="560" y="232" text-anchor="middle">Mailbox n</text>
+              <text class="dg-s" x="560" y="262" text-anchor="middle">n = hundreds of recipients</text>
+
+              <circle class="dg-ok" cx="640" cy="50" r="7"/>
+              <circle class="dg-ok" cx="640" cy="95" r="7"/>
+              <circle class="dg-fail" cx="640" cy="140" r="7"/>
+              <circle class="dg-ok" cx="640" cy="228" r="7"/>
+
+              <line class="dg-line" x1="651" y1="52" x2="697" y2="128" marker-end="url(#arr-d)"/>
+              <line class="dg-line" x1="651" y1="96" x2="697" y2="134" marker-end="url(#arr-d)"/>
+              <line class="dg-line" x1="651" y1="140" x2="697" y2="140" marker-end="url(#arr-d)"/>
+              <line class="dg-line" x1="651" y1="226" x2="697" y2="154" marker-end="url(#arr-d)"/>
+
+              <rect class="dg-box-strong" x="700" y="110" width="135" height="60" rx="4"/>
+              <text class="dg-t" x="767" y="135" text-anchor="middle">Aggregate</text>
+              <text class="dg-s" x="767" y="153" text-anchor="middle">per-mailbox results</text>
+              <line class="dg-line" x1="767" y1="171" x2="767" y2="211" marker-end="url(#arr-d)"/>
+              <rect class="dg-box" x="700" y="214" width="135" height="40" rx="4"/>
+              <text class="dg-t" x="767" y="239" text-anchor="middle">Audit record</text>
+
+              <path class="dg-retry" d="M400,167 C400,208 470,204 496,152" marker-end="url(#arr-a)"/>
+              <text class="dg-s" x="318" y="222">retry, idempotent</text>
+
+              <circle class="dg-ok" cx="26" cy="276" r="6"/>
+              <text class="dg-s" x="38" y="280">deleted</text>
+              <circle class="dg-fail" cx="110" cy="276" r="6"/>
+              <text class="dg-s" x="122" y="280">failed, retried on its own</text>
+            </svg>
+          </div>
+          <figcaption>A report fans the delete out to every recipient mailbox in parallel. Each mailbox operation is isolated and idempotent, so a failure is retried on its own, and every result is aggregated into one record for compliance and audit.</figcaption>
+        </figure>
+
+        <h3>What I did</h3>
+        <ul>
+          <li>Worked with legal, compliance and product to turn the legal requirements into technical contracts.</li>
+          <li>Designed the mass-deletion flow as event-driven: reporting a mail raises an event that asynchronously fans the delete out to every impacted mailbox.</li>
+          <li>Aggregated the per-mailbox responses into a single result, so every report has a complete record for compliance and audit.</li>
+          <li>Made the per-mailbox handlers idempotent and isolated failures per mailbox, so one failure is retried without repeating or blocking the rest.</li>
+          <li>Built parallel gRPC and REST execution paths, and authored and evolved the protobuf contracts between services.</li>
+          <li>Designed the security pattern for the system's access to user accounts, choosing the token types, scopes and permissions that guard against misuse, and drove the reviews with Microsoft security experts.</li>
+          <li>Built the monitoring and observability that detect failures and downtime in the flow.</li>
+          <li>Drove the design discussions with principal engineers and engineering managers to a final design.</li>
+        </ul>
+
+        <div class="result">
+          <h3>Result</h3>
+          <p>More than 99.9% reliability against regulatory deadlines, with no report silently dropped.</p>
+        </div>
+        <ul class="tags" aria-label="Topics">
+          <li>event-driven architecture</li><li>fan-out and aggregation</li><li>idempotency</li><li>gRPC</li><li>protobuf</li><li>token scopes</li><li>observability</li>
+        </ul>
+      </article>
+
+      <article class="case" id="identity">
+        <div class="eyebrow">Microsoft · Outlook Web · Security and rollout</div>
+        <h2>Outlook Platform migration: .NET Framework to .NET Core</h2>
+        <p class="lead">I drove Outlook Web's part of a high-priority, Microsoft-wide security initiative: moving its services onto OS-managed virtual-account identity, rolled out ring by ring across about 0.5M machines.</p>
+
+        <h3>Context</h3>
+        <p>Outlook Web's backend authenticated with a legacy credential model that had built up as security debt across a live fleet. A virtual account is managed by the operating system, so there is no service password to store, rotate or leak. The identity change ran inside the service's larger migration from .NET Framework to .NET Core.</p>
+
+        <h3>What made it hard</h3>
+        <p>We were carving a path with three versions of the same service in production at once. Any of them could be serving traffic on a given machine, and the newest had to be introduced without breaking the other two.</p>
+        <div class="table-wrap">
+          <table class="versions">
+            <thead><tr><th scope="col">Version</th><th scope="col">Runtime</th><th scope="col">Identity</th><th scope="col">Role during the rollout</th></tr></thead>
+            <tbody>
+              <tr><td>Legacy</td><td class="mono">.NET Framework</td><td class="mono">LocalSystem</td><td>Stable; served traffic whenever .NET Core was turned off</td></tr>
+              <tr><td>Modernised</td><td class="mono">.NET Core</td><td class="mono">LocalSystem</td><td>Still stabilising</td></tr>
+              <tr><td>Modernised and secured</td><td class="mono">.NET Core</td><td class="mono">Virtual account</td><td>Being rolled out ring by ring</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The service could not be paused while it moved. Each environment surfaced auth, permissions and secrets-management failures that only appeared once the new identity was in place, and fixing some of them needed agreement from auth and security teams in other orgs.</p>
+
+        <figure>
+          <div class="diagram">
+            <svg viewBox="0 0 760 300" role="img" aria-label="The identity change moved through three pre-production environments and then production rings, with a telemetry gate before each promotion. Production is organised as rings of forests, each forest holding DAGs of 16 to 24 machines, about 0.5M machines in all.">
+              <defs>
+                <marker id="arr-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-head"/></marker>
+              </defs>
               <rect class="dg-box" x="20" y="24" width="140" height="60" rx="4"/>
               <text class="dg-t" x="90" y="50" text-anchor="middle">Pre-prod 1</text>
               <text class="dg-s" x="90" y="68" text-anchor="middle">validation</text>
-
               <rect class="dg-box" x="210" y="24" width="140" height="60" rx="4"/>
               <text class="dg-t" x="280" y="50" text-anchor="middle">Pre-prod 2</text>
               <text class="dg-s" x="280" y="68" text-anchor="middle">validation</text>
-
               <rect class="dg-box" x="400" y="24" width="140" height="60" rx="4"/>
               <text class="dg-t" x="470" y="50" text-anchor="middle">Pre-prod 3</text>
               <text class="dg-s" x="470" y="68" text-anchor="middle">validation</text>
-
               <rect class="dg-box-strong" x="590" y="24" width="150" height="60" rx="4"/>
               <text class="dg-t" x="665" y="50" text-anchor="middle">Production</text>
               <text class="dg-s" x="665" y="68" text-anchor="middle">ring by ring</text>
 
-              <!-- promotions with gates -->
               <line class="dg-line" x1="161" y1="54" x2="207" y2="54" marker-end="url(#arr-r)"/>
               <polygon class="dg-gate" points="183,46 191,54 183,62 175,54"/>
               <line class="dg-line" x1="351" y1="54" x2="397" y2="54" marker-end="url(#arr-r)"/>
@@ -366,16 +452,14 @@ figcaption {
               <line class="dg-line" x1="541" y1="54" x2="587" y2="54" marker-end="url(#arr-r)"/>
               <polygon class="dg-gate" points="563,46 571,54 563,62 555,54"/>
 
-              <!-- legend -->
               <polygon class="dg-gate" points="26,104 32,110 26,116 20,110"/>
-              <text class="dg-s" x="40" y="114">telemetry gate: promote only while service health holds</text>
+              <text class="dg-s" x="40" y="114">gate: pre-rollout checklist and telemetry must pass; rollback ready</text>
 
-              <!-- zoom into one production ring -->
               <line class="dg-line" x1="665" y1="85" x2="665" y2="140" stroke-dasharray="2 3"/>
               <rect class="dg-zone" x="290" y="140" width="450" height="150" rx="4"/>
-              <text class="dg-k" x="304" y="160">PRODUCTION RING · ~100 FORESTS</text>
+              <text class="dg-k" x="304" y="160">PRODUCTION RING · FORESTS</text>
               <rect class="dg-zone" x="306" y="172" width="418" height="106" rx="3"/>
-              <text class="dg-k" x="320" y="192">FOREST · ~500 DAGS</text>
+              <text class="dg-k" x="320" y="192">FOREST · DAGS (HIGH-AVAILABILITY CLUSTERS)</text>
               <rect class="dg-box" x="322" y="204" width="210" height="62" rx="3"/>
               <text class="dg-s" x="336" y="224">DAG · 16–24 machines</text>
               <rect class="dg-machine" x="336" y="238" width="12" height="12" rx="1.5"/>
@@ -392,169 +476,220 @@ figcaption {
               <rect class="dg-ghost" x="606" y="204" width="48" height="62" rx="3"/>
               <rect class="dg-ghost" x="664" y="204" width="48" height="62" rx="3"/>
 
-              <!-- totals -->
-              <text class="dg-k" x="20" y="170">ONE PRODUCTION RING</text>
-              <text class="dg-big" x="20" y="198">100 × ~500 ≈ 50,000</text>
-              <text class="dg-s" x="20" y="216">high-availability clusters</text>
-              <text class="dg-big" x="20" y="250">hundreds of thousands</text>
-              <text class="dg-s" x="20" y="268">of servers</text>
+              <text class="dg-k" x="20" y="170">ACROSS THE ROLLOUT</text>
+              <text class="dg-big" x="20" y="198">~0.5M machines</text>
+              <text class="dg-s" x="20" y="216">promoted ring by ring</text>
+              <text class="dg-big" x="20" y="250">5 environments</text>
+              <text class="dg-s" x="20" y="268">3 pre-production, then production</text>
             </svg>
           </div>
-          <figcaption>The change had to pass a telemetry gate at every stage before it was promoted, and every stage could roll back. A DAG (database availability group) is Exchange's high-availability cluster unit.</figcaption>
+          <figcaption>Every promotion had to pass a gate, and every stage could roll back. A DAG (database availability group) is Exchange's high-availability cluster unit.</figcaption>
         </figure>
 
         <h3>What I did</h3>
         <ul>
-          <li>Owned the architecture and the alignment with auth and security teams across orgs.</li>
-          <li>Chose an incremental migration over a big-bang cutover, so a problem would stay inside one ring.</li>
-          <li>Designed the rollout across five environments: three pre-production stages, then production rings, with each promotion gated on telemetry and rollback ready at every ring.</li>
+          <li>Laid the path for the rollout: identified the dependent APIs and services, and made sure the right configuration was in place before any ring started.</li>
+          <li>Chose an incremental migration over a big-bang cutover, so a problem would stay inside one ring, and designed the rollout across 5 environments with telemetry gates and rollback at every ring.</li>
           <li>Root-caused the failures each ring exposed before promoting the next.</li>
-          <li>Built dashboards tracking the health of migrated services ring by ring, using AI tooling and agent skills to build them far faster than by hand.</li>
-          <li>Wrote the telemetry and runbooks that let any on-call engineer operate the new identity model.</li>
+          <li>Used AI agents and tools to build the monitoring dashboards, automate the rollout checklist steps, and send status updates to PMs, dependent teams and leadership.</li>
+          <li>Gave on-call engineers knowledge-transfer sessions and runbooks so they could handle incidents related to the migration.</li>
         </ul>
 
         <div class="result">
           <h3>Result</h3>
-          <p>Outlook Web's service identity moved to virtual accounts across the fleet one ring at a time, with each promotion gated on what the telemetry showed.</p>
+          <p>Outlook Web's services moved to virtual-account identity one ring at a time, with each expansion gated on checks and telemetry. The incident described under on-call happened during this rollout, and its fix made the rollback path safe.</p>
         </div>
         <ul class="tags" aria-label="Topics">
-          <li>service identity</li><li>secrets management</li><li>staged rollout</li><li>telemetry gating</li><li>.NET Core migration</li>
+          <li>service identity</li><li>secrets management</li><li>staged rollout</li><li>dependency mapping</li><li>.NET Core migration</li>
         </ul>
       </article>
 
-      <article class="case" id="dsa">
-        <div class="eyebrow">Microsoft · Outlook · Compliance</div>
-        <h2>Content reports under the EU Digital Services Act</h2>
-        <p class="lead">I designed and built the backend behind Outlook's Report a Concern flow, which handles content reports required under the EU Digital Services Act.</p>
+      <article class="case" id="signatures">
+        <div class="eyebrow">Microsoft · Outlook · Enterprise security</div>
+        <h2>Outlook cloud signatures for enterprise admins</h2>
+        <p class="lead">When the move to cloud signatures broke enterprise admins' ability to manage their users' signatures, I took a ~500-tickets-a-week escalation through a two-phase plan to a secure, reviewed design that restored admin access. Related escalations fell by about 99%.</p>
 
         <h3>Context</h3>
-        <p>The Digital Services Act puts legal obligations on how platforms act on reported content. In Outlook, when a user reports a mail, that mail has to be deleted from every recipient's mailbox, correctly, auditably and within the regulatory deadline.</p>
+        <p>Outlook moved signatures from local storage to the cloud. Because the storage location changed, admins lost the access they relied on to create, read, update and delete signatures for users in their tenants. Tenants filed around 500 tickets a week asking for a fix, or to be moved back to legacy signatures where the experience still worked.</p>
 
         <h3>What made it hard</h3>
-        <p>Volume was modest, hundreds of reports a week. The difficulty sat inside each report: one mail can have hundreds of recipients, every one of those deletes has to happen, and none of them can be silently dropped.</p>
+        <p>Nobody had a full picture of what had broken, or whether there were gaps no one had reported yet. Infrastructure limits made it hard to exclude affected tenants from the feature flight. The real fix meant an admin acting on another user's data, which needed agreement from security experts, Outlook data store owners and privacy reviewers.</p>
+
+        <h3>What I did</h3>
+        <p><span class="lead-in">Phase 1: relieve the impact.</span> I built a self-serve command admins could run to opt out of cloud signatures. It took the burden off on-call engineers and worked around the infrastructure limits on excluding tenants from the feature flight.</p>
+        <p><span class="lead-in">Phase 2: understand the full problem.</span> I worked with PMs to gather feedback from affected admins and tested cloud signatures myself. This found gaps that hadn't been reported, and gave a clearer picture of what users expected and why the feature had been built the way it was.</p>
+        <p><span class="lead-in">The design: restore admin access safely.</span> I drove the end-to-end design to let admins manage users' signatures again, and engineered its security pattern. I backed each proposal with data and took it through security experts, data store owners and privacy reviewers.</p>
 
         <figure>
           <div class="diagram">
-            <svg viewBox="0 0 760 280" role="img" aria-label="Reporting a mail raises an event. The event asynchronously triggers a fan-out that sends a delete to every recipient mailbox in parallel. A failed mailbox is retried on its own.">
+            <svg viewBox="0 0 870 256" role="img" aria-label="An admin calls the signature API with a token scoped to signatures only. An RBAC check admits only admins authorised for that tenant, who can then create, read, update and delete users' signatures. Unauthorised callers are denied, and other mailbox data is outside the token's scope.">
               <defs>
-                <marker id="arr-d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                  <path d="M0,0 L10,5 L0,10 z" class="dg-head"/>
-                </marker>
-                <marker id="arr-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                  <path d="M0,0 L10,5 L0,10 z" class="dg-head-accent"/>
-                </marker>
+                <marker id="arr-s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-head"/></marker>
+                <marker id="arr-ok" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-head-ok"/></marker>
+                <marker id="arr-no" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-head-fail"/></marker>
               </defs>
 
-              <rect class="dg-box" x="20" y="110" width="140" height="50" rx="4"/>
-              <text class="dg-t" x="90" y="131" text-anchor="middle">User reports</text>
-              <text class="dg-t" x="90" y="148" text-anchor="middle">a mail</text>
+              <rect class="dg-box" x="20" y="100" width="120" height="50" rx="4"/>
+              <text class="dg-t" x="80" y="121" text-anchor="middle">Tenant admin</text>
+              <text class="dg-s" x="80" y="139" text-anchor="middle">caller</text>
 
-              <line class="dg-line" x1="161" y1="135" x2="227" y2="135" marker-end="url(#arr-d)"/>
-              <text class="dg-s" x="194" y="126" text-anchor="middle">triggers</text>
+              <line class="dg-line" x1="141" y1="125" x2="247" y2="125" marker-end="url(#arr-s)"/>
+              <text class="dg-s" x="194" y="116" text-anchor="middle">scoped token</text>
+              <text class="dg-s" x="194" y="142" text-anchor="middle">signatures only</text>
 
-              <rect class="dg-box" x="230" y="110" width="120" height="50" rx="4"/>
-              <text class="dg-t" x="290" y="139" text-anchor="middle">Report event</text>
+              <rect class="dg-box-strong" x="250" y="100" width="150" height="50" rx="4"/>
+              <text class="dg-t" x="325" y="121" text-anchor="middle">Signature API</text>
+              <text class="dg-s" x="325" y="139" text-anchor="middle">CRUD requests</text>
 
-              <line class="dg-line" x1="351" y1="135" x2="397" y2="135" marker-end="url(#arr-d)"/>
-              <text class="dg-s" x="374" y="126" text-anchor="middle">async</text>
+              <line class="dg-line" x1="401" y1="125" x2="467" y2="125" marker-end="url(#arr-s)"/>
 
-              <rect class="dg-box-strong" x="400" y="110" width="100" height="50" rx="4"/>
-              <text class="dg-t" x="450" y="132" text-anchor="middle">Fan-out</text>
-              <text class="dg-s" x="450" y="150" text-anchor="middle">gRPC / REST</text>
+              <rect class="dg-box" x="470" y="100" width="160" height="50" rx="4"/>
+              <text class="dg-t" x="550" y="121" text-anchor="middle">RBAC check</text>
+              <text class="dg-s" x="550" y="139" text-anchor="middle">authorised for tenant?</text>
 
-              <!-- fan-out arrows -->
-              <line class="dg-line" x1="501" y1="128" x2="577" y2="47" marker-end="url(#arr-d)"/>
-              <line class="dg-line" x1="501" y1="131" x2="577" y2="91" marker-end="url(#arr-d)"/>
-              <line class="dg-line" x1="501" y1="135" x2="577" y2="135" marker-end="url(#arr-d)"/>
-              <line class="dg-line" x1="501" y1="142" x2="577" y2="223" marker-end="url(#arr-d)"/>
-              <text class="dg-s" x="545" y="151" text-anchor="middle">delete</text>
+              <line class="dg-line-ok" x1="631" y1="113" x2="697" y2="72" marker-end="url(#arr-ok)"/>
+              <text class="dg-good-text" x="652" y="84">yes</text>
+              <rect class="dg-box-good" x="700" y="45" width="150" height="50" rx="4"/>
+              <text class="dg-t" x="775" y="66" text-anchor="middle">Users' signatures</text>
+              <text class="dg-s" x="775" y="84" text-anchor="middle">cloud store</text>
 
-              <!-- mailboxes -->
-              <rect class="dg-box" x="580" y="30" width="130" height="30" rx="3"/>
-              <text class="dg-t" x="645" y="49" text-anchor="middle">Mailbox 1</text>
-              <circle class="dg-ok" cx="730" cy="45" r="7"/>
+              <line class="dg-line-fail" x1="631" y1="137" x2="697" y2="178" marker-end="url(#arr-no)"/>
+              <text class="dg-bad-text" x="652" y="174">no</text>
+              <rect class="dg-box-bad" x="700" y="155" width="150" height="50" rx="4"/>
+              <text class="dg-t" x="775" y="176" text-anchor="middle">Request denied</text>
+              <text class="dg-s" x="775" y="194" text-anchor="middle">caller not authorised</text>
 
-              <rect class="dg-box" x="580" y="75" width="130" height="30" rx="3"/>
-              <text class="dg-t" x="645" y="94" text-anchor="middle">Mailbox 2</text>
-              <circle class="dg-ok" cx="730" cy="90" r="7"/>
-
-              <rect class="dg-box" x="580" y="120" width="130" height="30" rx="3"/>
-              <text class="dg-t" x="645" y="139" text-anchor="middle">Mailbox 3</text>
-              <circle class="dg-fail" cx="730" cy="135" r="7"/>
-
-              <text class="dg-t" x="645" y="184" text-anchor="middle">⋮</text>
-
-              <rect class="dg-box" x="580" y="210" width="130" height="30" rx="3"/>
-              <text class="dg-t" x="645" y="229" text-anchor="middle">Mailbox n</text>
-              <circle class="dg-ok" cx="730" cy="225" r="7"/>
-
-              <text class="dg-s" x="645" y="262" text-anchor="middle">n = hundreds of recipients</text>
-
-              <!-- retry -->
-              <path class="dg-retry" d="M450,162 C450,200 540,198 576,148" marker-end="url(#arr-a)"/>
-              <text class="dg-s" x="410" y="214">retry, idempotent</text>
-
-              <!-- legend -->
-              <circle class="dg-ok" cx="26" cy="258" r="6"/>
-              <text class="dg-s" x="38" y="262">deleted</text>
-              <circle class="dg-fail" cx="110" cy="258" r="6"/>
-              <text class="dg-s" x="122" y="262">failed, retried on its own</text>
+              <line class="dg-ghost-line" x1="325" y1="151" x2="325" y2="200"/>
+              <line class="dg-cross" x1="319" y1="169" x2="331" y2="181"/>
+              <line class="dg-cross" x1="331" y1="169" x2="319" y2="181"/>
+              <text class="dg-s" x="340" y="179">outside token scope</text>
+              <rect class="dg-ghost" x="250" y="202" width="150" height="40" rx="4"/>
+              <text class="dg-s" x="325" y="226" text-anchor="middle">Other mailbox data</text>
             </svg>
           </div>
-          <figcaption>Reporting a mail raises an event that fans the delete out to every recipient mailbox in parallel. Each mailbox operation is isolated and idempotent, so a failure is retried on its own without repeating or blocking the rest.</figcaption>
+          <figcaption>The admin's token covers signatures only, so nothing else in a user's mailbox is reachable. An RBAC check then admits only admins authorised for that tenant.</figcaption>
         </figure>
 
-        <h3>What I did</h3>
         <ul>
-          <li>Worked with legal, compliance and product to turn the legal requirements into technical contracts.</li>
-          <li>Modelled the flow as event-driven: reporting a mail raises an event, and that event asynchronously fans the delete out to every recipient mailbox.</li>
-          <li>Built parallel gRPC and REST execution paths, and authored and evolved the protobuf contracts between services.</li>
-          <li>Made the per-mailbox handlers idempotent, so a failed operation can be retried safely.</li>
-          <li>Isolated failures per mailbox, so one mailbox failing does not block or undo the others.</li>
+          <li>Defined the scopes and permissions the caller's token must carry, so the blast radius of any one token stays contained.</li>
+          <li>Added role-based access control so only authorised admins can create, read, update or delete their users' signatures.</li>
+          <li>Built the cloud configuration APIs admins use to manage signatures across their organisation.</li>
         </ul>
 
         <div class="result">
           <h3>Result</h3>
-          <p>More than 99.9% reliability against regulatory deadlines, with no report silently dropped.</p>
+          <p>Admins manage signatures across their organisation themselves, through access limited to signatures and to authorised roles. Related escalations fell by about 99%, and the design laid the foundation for similar third-party access to user-level settings in a secure, compliant way.</p>
         </div>
         <ul class="tags" aria-label="Topics">
-          <li>event-driven fan-out</li><li>idempotency</li><li>partial failure</li><li>gRPC</li><li>protobuf contracts</li>
+          <li>ambiguity</li><li>delegated access</li><li>token scopes</li><li>RBAC</li><li>least privilege</li><li>privacy review</li>
         </ul>
       </article>
 
       <article class="case" id="oncall">
         <div class="eyebrow">Microsoft · Outlook · Operations</div>
-        <h2>Primary on-call for mission-critical messaging services</h2>
-        <p class="lead">I was primary on-call and incident owner for messaging services that held 99.95% availability.</p>
-        <p>I led major-incident resolution and root-cause analysis, and diagnosed production auth, permissions and secrets-management failures under time pressure. I tuned performance using production observability data.</p>
-        <p>I also wrote the telemetry and runbooks that let any on-call engineer operate the systems I owned, so the knowledge did not sit with one person.</p>
-        <ul class="tags" aria-label="Topics">
-          <li>incident response</li><li>root-cause analysis</li><li>runbooks</li><li>SLOs</li><li>performance tuning</li>
-        </ul>
-      </article>
+        <h2>Primary on-call for mission-critical Outlook Platform services</h2>
+        <p class="lead">I was primary on-call and incident owner for services that held 99.95% availability.</p>
+        <p>I led major-incident resolution and root-cause analysis, and diagnosed production auth, permissions and secrets-management failures under time pressure. I tuned performance using production observability data, and wrote the telemetry and runbooks that let any on-call engineer operate the systems I owned.</p>
 
-      <article class="case" id="signatures">
-        <div class="eyebrow">Microsoft · Outlook · Enterprise</div>
-        <h2>Self-serve signature management for enterprise admins</h2>
-        <p class="lead">I turned a long-standing customer blocker into a self-serve capability, and related support escalations fell by about 99%.</p>
-        <p>Managing email signatures across a whole organisation was a long-standing blocker for enterprise customers and a steady source of support escalations. I designed cloud-based configuration APIs that let admins manage signatures org-wide themselves.</p>
+        <h3>An incident I owned</h3>
+        <p class="incident-title">Severity 2: Outlook Web availability drops to zero after a rollback</p>
+        <p><span class="lead-in">What happened.</span> During a bake period in the virtual-account rollout, a separate production incident forced us to turn off the .NET Core version of Outlook's platform services so the older .NET Framework version could serve traffic. Once that incident was resolved, .NET Core was turned back on.</p>
+        <p><span class="lead-in">Impact.</span> Machines that carried the virtual-account configuration started returning 403 errors, and availability of Outlook Web services on those machines dropped to zero. It was raised as a severity 2 incident.</p>
+        <p><span class="lead-in">Investigation.</span> 403 errors pointed at service authentication. The .NET Core version could run with or without the virtual-account configuration, and the errors came only from machines that had it, so I focused on what that configuration changes. Machine logs on every affected server showed the same http.sys error: insufficient permissions for the outlook.com URL.</p>
+        <p><span class="lead-in">Root cause.</span> The virtual-account configuration makes two OS-level changes. It runs the service under a new identity, and it reserves the service's URLs exclusively for that identity so it can listen for live requests. When .NET Core has to be turned off, existing logic cleans up that URL reservation so the .NET Framework version, running as LocalSystem, can serve the traffic. Re-enabling .NET Core brought back the virtual-account identity but not the reservation, so the service no longer had permission to listen on its own URL.</p>
+
+        <figure>
+          <div class="diagram">
+            <svg viewBox="0 0 800 322" role="img" aria-label="Before the fix, an incident rollback removed the URL reservation but kept the virtual-account identity, so when .NET Core was turned back on it returned 403 errors and availability dropped to zero. After the fix, the rollback also removes the virtual-account identity configuration, so the re-enabled service runs as LocalSystem and serves traffic.">
+              <defs>
+                <marker id="arr-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" class="dg-head"/>
+                </marker>
+              </defs>
+              <text class="dg-k" x="135" y="24" text-anchor="middle">1 · SERVING ON VA</text>
+              <text class="dg-k" x="400" y="24" text-anchor="middle">2 · INCIDENT ROLLBACK</text>
+              <text class="dg-k" x="665" y="24" text-anchor="middle">3 · .NET CORE RE-ENABLED</text>
+              <text class="dg-k" x="20" y="48">BEFORE THE FIX</text>
+              <rect class="dg-box" x="20" y="58" width="230" height="106" rx="4"/>
+              <text class="dg-t" x="34" y="80">.NET Core serving</text>
+              <text class="dg-s" x="34" y="98">identity: virtual account</text>
+              <text class="dg-s" x="34" y="114">URL reserved for that identity</text>
+              <rect class="dg-ok" x="34" y="138" width="62" height="18" rx="9"/>
+              <text class="dg-chip" x="65" y="151" text-anchor="middle">serving</text>
+              <rect class="dg-box" x="285" y="58" width="230" height="106" rx="4"/>
+              <text class="dg-t" x="299" y="80">.NET Framework serving</text>
+              <text class="dg-s" x="299" y="98">identity: LocalSystem</text>
+              <text class="dg-s" x="299" y="114">URL reservation removed</text>
+              <rect class="dg-ok" x="299" y="138" width="62" height="18" rx="9"/>
+              <text class="dg-chip" x="330" y="151" text-anchor="middle">serving</text>
+              <rect class="dg-box-bad" x="550" y="58" width="230" height="106" rx="4"/>
+              <text class="dg-t" x="564" y="80">.NET Core back on</text>
+              <text class="dg-bad-text" x="564" y="98">identity: virtual account</text>
+              <text class="dg-s" x="564" y="114">no URL reservation</text>
+              <rect class="dg-fail" x="564" y="138" width="150" height="18" rx="9"/>
+              <text class="dg-chip" x="639" y="151" text-anchor="middle">403 · availability 0</text>
+              <text class="dg-k" x="20" y="194">AFTER THE FIX</text>
+              <rect class="dg-box" x="20" y="204" width="230" height="106" rx="4"/>
+              <text class="dg-t" x="34" y="226">.NET Core serving</text>
+              <text class="dg-s" x="34" y="244">identity: virtual account</text>
+              <text class="dg-s" x="34" y="260">URL reserved for that identity</text>
+              <rect class="dg-ok" x="34" y="284" width="62" height="18" rx="9"/>
+              <text class="dg-chip" x="65" y="297" text-anchor="middle">serving</text>
+              <rect class="dg-box" x="285" y="204" width="230" height="106" rx="4"/>
+              <text class="dg-t" x="299" y="226">.NET Framework serving</text>
+              <text class="dg-s" x="299" y="244">identity: LocalSystem</text>
+              <text class="dg-s" x="299" y="260">URL reservation removed</text>
+              <text class="dg-good-text" x="299" y="276">VA identity config removed</text>
+              <rect class="dg-ok" x="299" y="284" width="62" height="18" rx="9"/>
+              <text class="dg-chip" x="330" y="297" text-anchor="middle">serving</text>
+              <rect class="dg-box-good" x="550" y="204" width="230" height="106" rx="4"/>
+              <text class="dg-t" x="564" y="226">.NET Core back on</text>
+              <text class="dg-good-text" x="564" y="244">identity: LocalSystem</text>
+              <text class="dg-s" x="564" y="260">no reservation needed</text>
+              <rect class="dg-ok" x="564" y="284" width="62" height="18" rx="9"/>
+              <text class="dg-chip" x="595" y="297" text-anchor="middle">serving</text>
+              <line class="dg-line" x1="251" y1="111" x2="283" y2="111" marker-end="url(#arr-o)"/>
+              <line class="dg-line" x1="516" y1="111" x2="548" y2="111" marker-end="url(#arr-o)"/>
+              <line class="dg-line" x1="251" y1="257" x2="283" y2="257" marker-end="url(#arr-o)"/>
+              <line class="dg-line" x1="516" y1="257" x2="548" y2="257" marker-end="url(#arr-o)"/>
+            </svg>
+          </div>
+          <figcaption>Before the fix, rollback removed the URL reservation but left the virtual-account identity in place, so the re-enabled service had no permission to listen on its URL. After the fix, rollback also reverts the identity to LocalSystem, which needs no exclusive reservation.</figcaption>
+        </figure>
+
+        <p><span class="lead-in">Fix.</span> I fast-tracked a change so that the rollback cleanup also removes the virtual-account identity configuration. A .NET Core service re-enabled after a rollback now runs as LocalSystem, like the older version, and can serve from the URL without an exclusive reservation.</p>
+        <p><span class="lead-in">Follow-up.</span> I updated the playbook and the shift handoff notes to call out this failure mode, with a clear instruction: if .NET Core is rolled back for any reason, do not re-enable it on machines with the virtual-account configuration.</p>
         <ul class="tags" aria-label="Topics">
-          <li>API design</li><li>enterprise admin</li><li>customer escalations</li>
+          <li>incident response</li><li>root-cause analysis</li><li>rollback safety</li><li>http.sys</li><li>runbooks</li><li>SLOs</li>
         </ul>
       </article>
 
       <article class="case" id="agents">
         <div class="eyebrow">Microsoft · Engineering productivity</div>
-        <h2>AI agent workflows for engineering</h2>
-        <p class="lead">I built reusable AI agent workflows for rollout monitoring, incident investigation and finding my way around large codebases, and they were adopted across the org.</p>
-        <p>They are now part of how the team reviews pull requests and automates routine work. I used the same tooling and agent skills to build the identity migration's health dashboards far faster than building them by hand.</p>
+        <h2>AI agents for incidents, rollouts and large codebases</h2>
+        <p class="lead">I built AI agents and workflows that take routine work off engineers, and they were adopted across the org.</p>
+
+        <h3>Incident investigation</h3>
+        <p>Many incidents follow the same investigation pattern. I automated these steps and taught them to an agent:</p>
+        <ol class="steps">
+          <li>View the dashboards for the affected APIs.</li>
+          <li>Isolate the affected regions.</li>
+          <li>Pull logs from those regions.</li>
+          <li>Look for recent flight changes or code merges.</li>
+        </ol>
+        <p>Incidents that follow the pattern no longer queue up for on-call engineers, who can spend their time on the rare incidents that don't.</p>
+
+        <h3>Rollout safety</h3>
+        <p>I used Copilot and Claude Code to build monitoring dashboards and a checklist check that runs before each rollout. Together they give a clear picture of the service's current state, and of whether it is safe to expand the modernised versions further.</p>
+
+        <h3>Understanding large codebases</h3>
+        <p>The biggest gain was in understanding large codebases quickly. Using AI, we found significant encryption-related gaps in a short time. That let us prioritise the feature correctly, set the right expectations on its timeline, and deliver it to the client. The workflows are also part of how the team reviews pull requests.</p>
         <ul class="tags" aria-label="Topics">
-          <li>AI agents</li><li>rollout monitoring</li><li>incident investigation</li><li>code review</li>
+          <li>AI agents</li><li>incident automation</li><li>rollout checklists</li><li>Copilot</li><li>Claude Code</li>
         </ul>
       </article>
 
       <section class="case" id="earlier">
-        <div class="eyebrow">Earlier and smaller work</div>
         <h2>Other work</h2>
         <div class="items">
           <div class="item">
@@ -571,7 +706,6 @@ figcaption {
       </section>
 
       <section class="case" id="projects">
-        <div class="eyebrow">Projects and paper</div>
         <h2>Projects and paper</h2>
         <div class="items">
           <div class="item">
@@ -588,19 +722,19 @@ figcaption {
       </section>
 
       <section class="case" id="skills">
-        <div class="eyebrow">Toolbox</div>
         <h2>Skills</h2>
         <dl class="skills">
           <div><dt>Languages</dt><dd>C#, C++, Python, C, TypeScript</dd></div>
-          <div><dt>Distributed systems</dt><dd>gRPC and protobuf contract evolution, REST APIs, event-driven fan-out, idempotency and retry semantics, fault isolation, concurrency</dd></div>
-          <div><dt>Production engineering</dt><dd>incident response and root-cause analysis, observability and dashboards, SLOs, ring-based staged rollouts, runbooks, CI/CD</dd></div>
+          <div><dt>Distributed systems</dt><dd>event-driven architecture, fan-out and aggregation, microservices, .NET Core, gRPC and protobuf contract evolution, REST APIs, idempotency and retries, fault isolation, concurrency</dd></div>
+          <div><dt>Reliability and operations</dt><dd>SLOs, observability and dashboards, ring-based staged rollouts, incident response, root-cause analysis, runbooks, CI/CD</dd></div>
+          <div><dt>Security</dt><dd>service identity, secrets management, token types, scopes and permissions, RBAC, least privilege</dd></div>
+          <div><dt>AI-assisted engineering</dt><dd>AI agents for incident investigation and rollout automation, Copilot, Claude Code</dd></div>
           <div><dt>Platforms</dt><dd>Windows Server at production scale; Linux and C (Cisco Expressway, systems projects)</dd></div>
         </dl>
       </section>
 
       <section class="case" id="education">
-        <div class="eyebrow">Education</div>
-        <h2>IIIT Bangalore</h2>
+        <h2>Education</h2>
         <p>Integrated M.Tech + B.Tech, Electronics and Communication, International Institute of Information Technology Bangalore, 2015–2020.</p>
       </section>
 
@@ -621,29 +755,26 @@ figcaption {
       var text = btn.getAttribute('data-copy');
       function selectEmail() {
         try {
-          var el = document.getElementById('email');
           var range = document.createRange();
-          range.selectNodeContents(el);
+          range.selectNodeContents(document.getElementById('email'));
           var sel = window.getSelection();
           sel.removeAllRanges();
           sel.addRange(range);
         } catch (e) {}
       }
-      var done = function (label) {
+      function done(label) {
         btn.textContent = label;
         setTimeout(function () { btn.textContent = 'Copy email'; }, 1800);
-      };
+      }
       try {
         navigator.clipboard.writeText(text).then(function () { done('Copied'); }, function () { selectEmail(); done('Selected, press copy'); });
       } catch (e) { selectEmail(); done('Selected, press copy'); }
     });
   }
-
   try {
     var links = Array.prototype.slice.call(document.querySelectorAll('.rail a'));
     var map = {};
     links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
-    var sections = Object.keys(map).map(function (id) { return document.getElementById(id); }).filter(Boolean);
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
@@ -653,7 +784,7 @@ figcaption {
         }
       });
     }, { rootMargin: '-30% 0px -60% 0px' });
-    sections.forEach(function (s) { io.observe(s); });
+    Object.keys(map).forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
   } catch (e) {}
 })();
 </script>
